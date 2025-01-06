@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "app.image-storage-path",
+      "type": "java.lang.String",
+      "description": "Description for app.image-storage-path."
+  }
+] }
