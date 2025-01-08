@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/user")
 public class UserController {
 
-    private final SellerMapper sellerMapper;
+    private final UserMapper UserMapper;
 
-    public UserController(SellerMapper sellerMapper) {
-        this.sellerMapper = sellerMapper;
+    public UserController(UserMapper UserMapper) {
+        this.UserMapper = UserMapper;
     }
     @GetMapping("/hello")
     public String hello() {
@@ -27,13 +28,21 @@ public class UserController {
     }
 
     @GetMapping("/findAll")
-    public List<Seller> findAllUser() {
-        return sellerMapper.findAll();
+    public List<User> findAllUser() {
+        return UserMapper.findAll();
     }
 
-    @GetMapping("/userlist")
+    @GetMapping("/userList")
     public ResponseEntity<List<User>> getAllUser() {
-        List<Product> User = UserMapper.findAll();
+        List<User> User = UserMapper.findAll();
         return ResponseEntity.ok(User);
+    }
+    @PostMapping("/selectUserById") // 使用POST方法
+    public ResponseEntity<User> selectUserById(@RequestBody User request) {
+        User user = UserMapper.findById(request.getUserId()); // 使用传入的userId参数查找用户
+        if (user == null) {
+            return ResponseEntity.notFound().build(); // 如果没有找到对应的用户，返回 404 Not Found
+        }
+        return ResponseEntity.ok(user); // 返回找到的用户信息
     }
 }

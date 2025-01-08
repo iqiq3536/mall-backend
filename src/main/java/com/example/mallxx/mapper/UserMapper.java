@@ -8,11 +8,11 @@ import java.util.List;
 public interface UserMapper {
 
     // 查询所有用户
-    @Select("SELECT * FROM user")
+    @Select("SELECT * FROM users")
     List<User> findAll();
 
     // 根据ID查询用户
-    @Select("SELECT * FROM user WHERE user_id = #{userId}")
+    @Select("SELECT * FROM users WHERE user_id = #{userId}")
     User findById(@Param("userId") int userId);
 
     // 插入新用户
