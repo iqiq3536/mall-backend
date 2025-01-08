@@ -26,6 +26,7 @@ public class LoginController {
             System.out.println("1");
             response.put("success", true);
             response.put("message", "登录成功！");
+            //token
         } else {
             System.out.println("2");
             response.put("success", false);
