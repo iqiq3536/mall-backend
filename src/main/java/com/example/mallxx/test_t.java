@@ -6,7 +6,10 @@ import java.sql.SQLException;
 
 public class test_t {
     public static void main(String[] args) {
-        String url = "jdbc:mysql://localhost:3306/mall";
+        /*String url = "jdbc:mysql://localhost:3306/mall";
+        String user = "root";
+        String password = "123456";*/
+        String url = "rm-cn-lyi429m9t00096xo.rwlb.rds.aliyuncs.com";
         String user = "root";
         String password = "123456";
 
