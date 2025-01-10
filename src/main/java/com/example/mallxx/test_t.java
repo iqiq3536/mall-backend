@@ -11,7 +11,7 @@ public class test_t {
         String password = "123456";*/
         String url = "rm-cn-lyi429m9t00096xo.rwlb.rds.aliyuncs.com";
         String user = "root";
-        String password = "123456";
+        String password = "1234454556";
 
         try {
             // 加载MySQL JDBC驱动

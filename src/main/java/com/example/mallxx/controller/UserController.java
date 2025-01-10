@@ -1,13 +1,8 @@
 package com.example.mallxx.controller;
 
 
-import com.example.mallxx.dao.SellerDao;
-import com.example.mallxx.entity.Product;
-import com.example.mallxx.entity.Seller;
 import com.example.mallxx.entity.User;
-import com.example.mallxx.mapper.SellerMapper;
 import com.example.mallxx.mapper.UserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,12 +32,41 @@ public class UserController {
         List<User> User = UserMapper.findAll();
         return ResponseEntity.ok(User);
     }
-    @PostMapping("/selectUserById") // 使用POST方法
+    //通过id查找用户，返回单个用户
+    @PostMapping("/findUserById") // 使用POST方法
     public ResponseEntity<User> selectUserById(@RequestBody User request) {
         User user = UserMapper.findById(request.getUserId()); // 使用传入的userId参数查找用户
         if (user == null) {
-            return ResponseEntity.notFound().build(); // 如果没有找到对应的用户，返回 404 Not Found
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(user); // 返回找到的用户信息
+        return ResponseEntity.ok(user);
     }
+    //通过用户名username查找用户，返回单个用户
+    @PostMapping("/findUserByUsername")
+    public ResponseEntity<User> findUserByUsername(@RequestBody User request) {
+        User user = UserMapper.findByUsername(request.getUsername());
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(user);
+    }
+    //通过家庭名称查用户，返回list<user>
+    @PostMapping("/findUsersByFamilyName")
+    public ResponseEntity<List<User>> findUsersByFamilyName(@RequestBody User request) {
+        List<User> users = UserMapper.findUsersByFamilyName(request.getFamily_name());
+        if (users.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(users);
+    }
+    //通过家庭id查用户，返回list<user>
+    @PostMapping("/findUsersByFamilyId")
+    public ResponseEntity<List<User>> findUsersByFamilyId(@RequestBody User request) {
+        List<User> users = UserMapper.findUsersByFamilyId(request.getFamily_id());
+        if (users.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(users);
+    }
+
 }

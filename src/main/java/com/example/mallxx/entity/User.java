@@ -2,7 +2,7 @@ package com.example.mallxx.entity;
 
 public class User {
 /*
-user_id: 用户ID，主键。
+UserId: 用户ID，主键。
 username: 用户名。
 password: 密码。
 full_name: 用户全名。
