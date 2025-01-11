@@ -12,18 +12,30 @@ public interface ProductMapper {
     @Select("select * from product")
     List<Product> findAll();
 
-    @Update("update product set name = #{name}, img_url = #{img_url} where id = #{id}")
-    void update(@Param("id") int id, @Param("name") String name, @Param("img_url") String img_url);
+    @Update("update products set name = #{name}, category = #{category}, img_url = #{img_url}, " +
+            "description = #{description}, price = #{price}, stock = #{stock} where id = #{id}")
+    void update(@Param("id") int id,
+                @Param("name") String name,
+                @Param("category") String category,
+                @Param("img_url") String img_url,
+                @Param("description") String description,
+                @Param("price") double price,
+                @Param("stock") int stock);
 
-    @Select("select * from product where id = #{id}")
+    @Select("select * from products where id = #{id}")
     Product findById(int id);
 
-    @Delete("delete from product where id = #{id}")
+    @Delete("delete from products where id = #{id}")
     void deleteById(int id);
 
-    @Insert("insert into product(name, img_url) values(#{name}, #{img_url})")
-    void add(@Param("name") String name, @Param("img_url") String img_url);
-
+    @Insert("insert into products(name, category, img_url, description, price, stock) " +
+            "values(#{name}, #{category}, #{img_url}, #{description}, #{price}, #{stock})")
+    void add(@Param("name") String name,
+             @Param("category") String category,
+             @Param("img_url") String img_url,
+             @Param("description") String description,
+             @Param("price") double price,
+             @Param("stock") int stock);
 
 
 
