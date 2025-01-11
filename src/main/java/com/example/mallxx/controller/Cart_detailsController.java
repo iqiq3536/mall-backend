@@ -24,6 +24,7 @@ public class Cart_detailsController {
     @GetMapping("/get_cart_details_list")
     public ResponseEntity<List<Cart_details>> getCart_detailsList(@RequestBody Shopping_carts shopping_carts) {
         List<Cart_details> cart_details_list=cart_detailsMapper.findCart_detailsByCart_id(shopping_carts);
+
         return ResponseEntity.ok(cart_details_list);
     }
 

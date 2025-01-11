@@ -11,6 +11,7 @@ public class Order_details {
     private String order_detail_status;//订单状态
     private String shipping_status;//配送状态
     private String last_update_at;
+    private int merchant_id;
 
     public int getOrder_detail_id() {
         return order_detail_id;
@@ -71,5 +72,12 @@ public class Order_details {
     }
     public void setLast_update_at(String last_update_at) {
         this.last_update_at = last_update_at;
+    }
+
+    public int getMerchant_id() {
+        return merchant_id;
+    }
+    public void setMerchant_id(int merchant_id) {
+        this.merchant_id = merchant_id;
     }
 }

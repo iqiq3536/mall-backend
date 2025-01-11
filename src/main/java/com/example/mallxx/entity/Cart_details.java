@@ -7,6 +7,7 @@ public class Cart_details {
     private int quantity;
     private int unit_price;
     private String creat_data;
+    private int merchant_id;
 
     public int getCart_details_id() {
         return cart_details_id;
@@ -45,5 +46,10 @@ public class Cart_details {
         this.creat_data = creat_data;
     }
 
-
+    public int getMerchant_id() {
+        return merchant_id;
+    }
+    public void setMerchant_id(int merchant_id) {
+        this.merchant_id = merchant_id;
+    }
 }
