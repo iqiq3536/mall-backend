@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface ProductMapper {
 
-    @Select("select * from product")
+    @Select("select * from products")
     List<Product> findAll();
 
     @Update("update products set name = #{name}, category = #{category}, img_url = #{img_url}, " +
