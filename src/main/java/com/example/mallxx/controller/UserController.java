@@ -35,7 +35,7 @@ public class UserController {
     //通过id查找用户，返回单个用户
     @PostMapping("/findUserById") // 使用POST方法
     public ResponseEntity<User> selectUserById(@RequestBody User request) {
-        User user = UserMapper.findById(request.getUserId()); // 使用传入的userId参数查找用户
+        User user = UserMapper.findById(request.getUser_id()); // 使用传入的userId参数查找用户
         if (user == null) {
             return ResponseEntity.notFound().build();
         }
