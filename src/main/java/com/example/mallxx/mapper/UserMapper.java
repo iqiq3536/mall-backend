@@ -12,8 +12,8 @@ public interface UserMapper {
     List<User> findAll();
 
     // 根据ID查询用户
-    @Select("SELECT * FROM users WHERE user_id = #{userId}")
-    User findById(@Param("userId") int userId);
+    @Select("SELECT * FROM users WHERE user_id = #{user_id}")
+    User findById(@Param("user_id") int user_id);
     // 根据用户名查询用户
     @Select("SELECT * FROM users WHERE username = #{username}")
     User findByUsername(@Param("username") String username);

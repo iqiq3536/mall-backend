@@ -12,7 +12,7 @@ family_id: 家庭ID。
 family_name: 家庭名称。
 */
 
-    private int UserId;
+    private int user_id;
     private String username;
     private String password;
     private String full_name;
@@ -23,12 +23,12 @@ family_name: 家庭名称。
 
     public User() {}
 
-    public int getUserId() {
-        return UserId;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(int UserId) {
-        this.UserId = UserId;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getUsername() {
