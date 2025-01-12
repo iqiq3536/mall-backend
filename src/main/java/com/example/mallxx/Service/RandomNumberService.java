@@ -11,7 +11,7 @@ public class RandomNumberService {
      *
      * @return 生成的随机整数.
      */
-    public int generateRandomInt() {
+    public static int generateRandomInt() {
         // 获取当前时间的时间戳（秒）
         long currentTimeStamp = Instant.now().getEpochSecond();
         // 创建一个Random实例

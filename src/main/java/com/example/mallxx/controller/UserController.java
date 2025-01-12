@@ -6,7 +6,7 @@ import com.example.mallxx.mapper.UserMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import com.example.mallxx.Service.RandomNumberService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,28 +76,51 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
     //通过家庭id查用户，返回list<user>
-    @PostMapping("/findUsersByFamilyId")
+    /*@PostMapping("/findUsersByFamilyId")
     public ResponseEntity<List<User>> findUsersByFamilyId(@RequestBody User request) {
         List<User> users = UserMapper.findUsersByFamilyId(request.getFamily_id());
         if (users.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(users);
+    }*/
+
+    // 通过家庭id查用户，返回list<user>
+    @PostMapping("/findUsersByFamilyId")
+    public ResponseEntity<List<User>> findUsersByFamilyId(@RequestBody User request) {
+        List<User> users = UserMapper.findUsersByFamilyId(request.getFamily_id());
+        if (users.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.ok(users);
     }
     //通过id更新用户，返回boolean
-    @PostMapping("/updateUserById")
+    /*@PostMapping("/updateUserById")
     public boolean updateUserById(@RequestBody User request) {
         // 调用UserMapper的updateUser方法，并传递整个User对象
         return UserMapper.updateUser(request);  // 假设userMapper已经通过依赖注入获得
+    }*/
+    // 通过id更新用户，返回包装了布尔结果的ResponseEntity
+    @PostMapping("/updateUserById")
+    public ResponseEntity<Boolean> updateUserById(@RequestBody User request) {
+        // 假设userMapper已经通过依赖注入获得
+        boolean isUpdated = UserMapper.updateUser(request);
+        if (isUpdated) {
+            return ResponseEntity.ok(true);
+        } else {
+            // 如果更新失败，返回400 Bad Request 或者其他适合的状态码
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
+        }
     }
     //添加用户，返回boolean
     @PostMapping("/addUser")
     public boolean addUser(@RequestBody User request) {
-        request.setUser_id(UserMapper.findAll().size()+1);
+        //request.setUser_id(UserMapper.findAll().size()+1);
+        request.setUser_id(RandomNumberService.generateRandomInt());
         return UserMapper.addUser(request);
     }
     // 根据ID删除用户信息
-    @DeleteMapping("/deleteUser")
+    @PostMapping("/deleteUser")
     public boolean deleteUser(@RequestBody User request) {
         return UserMapper.deleteUser(request.getUser_id());
     }
