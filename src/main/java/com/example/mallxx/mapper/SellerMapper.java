@@ -19,4 +19,5 @@ public interface SellerMapper {
     List<Seller> findByUsernameAndPassword(@Param("username") String username, @Param("password") String password);
 
 
+
 }

@@ -1,19 +1,23 @@
 package com.example.mallxx.controller;
 
+import com.example.mallxx.entity.User;
 import com.example.mallxx.mapper.SellerMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import com.example.mallxx.entity.User;
+import com.example.mallxx.mapper.UserMapper;
 @RequestMapping("/api")
 @RestController
 public class LoginController {
     private final SellerMapper sellerMapper;
+    private final UserMapper UserMapper;
 
-    public LoginController(SellerMapper sellerMapper) {
+    public LoginController(SellerMapper sellerMapper, com.example.mallxx.mapper.UserMapper userMapper) {
         this.sellerMapper = sellerMapper;
+        UserMapper = userMapper;
     }
 
     @PostMapping("/login")
@@ -24,8 +28,10 @@ public class LoginController {
         Map<String, Object> response = new HashMap<>();
         if (!sellerMapper.findByUsernameAndPassword(username, password).isEmpty()) {
             System.out.println("1");
+            User user = UserMapper.findByUsername(username);
             response.put("success", true);
             response.put("message", "登录成功！");
+            response.put("user", user);
             //token
         } else {
             System.out.println("2");
