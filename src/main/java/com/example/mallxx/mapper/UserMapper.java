@@ -28,17 +28,18 @@ public interface UserMapper {
     List<User> findUsersByFamilyName(@Param("familyName") String familyName);
 
     // 插入新用户
-    @Insert("INSERT INTO user(user_id, username, password, full_name, gender, contact_info, family_id, family_name) " +
+    @Insert("INSERT INTO users(user_id, username, password, full_name, gender, contact_info, family_id, family_name) " +
             "VALUES(#{user.user_id}, #{user.username}, #{user.password}, #{user.full_name}, #{user.gender}, #{user.contact_info}, #{user.family_id}, #{user.family_name})")
-    void addUser(@Param("user") User user);
+    Boolean addUser(@Param("user") User user);
 
     // 更新用户信息
-    @Update("UPDATE user SET username = #{user.username}, password = #{user.password}, full_name = #{user.full_name}, " +
+    @Update("UPDATE users SET username = #{user.username}, password = #{user.password}, full_name = #{user.full_name}, " +
             "gender = #{user.gender}, contact_info = #{user.contact_info}, family_id = #{user.family_id}, family_name = #{user.family_name} " +
             "WHERE user_id = #{user.user_id}")
-    void updateUser(@Param("user") User user);
+    Boolean updateUser(@Param("user") User user);
 
-    // 根据ID删除用户
-    @Delete("DELETE FROM user WHERE user_id = #{userId}")
-    void deleteById(@Param("userId") int userId);
+
+    // 删除用户信息
+    @Delete("DELETE FROM users WHERE user_id = #{user_id}")
+    Boolean deleteUser(@Param("user_id") int userId);
 }
