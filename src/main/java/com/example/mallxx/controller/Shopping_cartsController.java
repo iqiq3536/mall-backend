@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+@RestController
 @RequestMapping("/api")
 public class Shopping_cartsController {
     private final Shopping_cartsMapper shopping_cartsMapper;
@@ -21,6 +22,7 @@ public class Shopping_cartsController {
 
     @PostMapping("/InsertShopping_carts")
     public void AddShopping_carts(@RequestBody User user) {
+        //System.out.println(user.getUser_id()+"******+++++++++++------------");
         shopping_cartsMapper.add(user);
     }
 

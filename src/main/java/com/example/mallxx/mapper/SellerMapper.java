@@ -12,7 +12,10 @@ public interface SellerMapper {
     @Select("select * from seller")
     List<Seller> findAll();
 
-    @Select("SELECT * FROM seller WHERE id = #{username} AND name = #{password}")
+    //@Select("SELECT * FROM seller WHERE id = #{username} AND name = #{password}")
+    //List<Seller> findByUsernameAndPassword(@Param("username") String username, @Param("password") String password);
+
+    @Select("SELECT * FROM users WHERE username = #{username} AND password = #{password}")
     List<Seller> findByUsernameAndPassword(@Param("username") String username, @Param("password") String password);
 
 
