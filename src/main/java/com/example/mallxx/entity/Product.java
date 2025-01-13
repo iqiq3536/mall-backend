@@ -1,22 +1,20 @@
 package com.example.mallxx.entity;
 
 public class Product {
-
-    private int id;
+    private int product_id;
     private String name;
     private String category;
-    private String img_url;
+    private String img_link;
     private String description;
     private double price;
     private int stock;
 
-
-    public int getId() {
-        return id;
+    public int getProduct_id() {
+        return product_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setProduct_id(int product_id) {
+        this.product_id = product_id;
     }
 
     public String getName() {
@@ -35,12 +33,12 @@ public class Product {
         this.category = category;
     }
 
-    public String getImg_url() {
-        return img_url;
+    public String getImg_link() {
+        return img_link;
     }
 
-    public void setImg_url(String img_url) {
-        this.img_url = img_url;
+    public void setImg_link(String img_link) {
+        this.img_link = img_link;
     }
 
     public String getDescription() {
@@ -70,13 +68,15 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "id=" + id +
+                "product_id=" + product_id +
                 ", name='" + name + '\'' +
                 ", category='" + category + '\'' +
-                ", img_url='" + img_url + '\'' +
+                ", img_link='" + img_link + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", stock=" + stock +
                 '}';
     }
+
+
 }
