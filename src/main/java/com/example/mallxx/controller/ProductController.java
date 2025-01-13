@@ -44,4 +44,6 @@ public class ProductController {
         productMapper.add(product.getName(), product.getCategory(), product.getImg_url(), product.getDescription(), product.getPrice(), product.getStock());
         return ResponseEntity.noContent().build();
     }
+
+
 }

@@ -62,4 +62,22 @@ public interface UserInterestMapper {
      */
     @Select("SELECT * FROM user_interests")
     List<UserInterest> selectAll();
+
+    /**
+     * 根据用户ID和标签ID查询用户兴趣标签记录。
+     * @param userId 查询条件：用户的ID
+     * @param tagId 查询条件：标签的ID
+     * @return 返回指定用户ID和标签ID的兴趣标签记录
+     */
+    @Select("SELECT * FROM user_interests WHERE user_id = #{userId} AND tag_id = #{tagId}")
+    UserInterest selectByUserIdAndTagId(@Param("userId") int userId, @Param("tagId") int tagId);
+
+    /**
+     * 检查是否存在指定用户ID和标签ID的兴趣标签记录。
+     * @param userId 用户ID
+     * @param tagId 标签ID
+     * @return 返回记录的数量，如果存在则返回大于0的值，否则返回0
+     */
+    @Select("SELECT COUNT(*) FROM user_interests WHERE user_id = #{userId} AND tag_id = #{tagId}")
+    int existsByUserIdAndTagId(@Param("userId") int userId, @Param("tagId") int tagId);
 }

@@ -25,6 +25,19 @@ public interface ProductMapper {
     @Select("select * from products where id = #{id}")
     Product findById(int id);
 
+    /**
+     * 通过商品id列表查找商品
+     * @param id
+     */
+    @Select("<script>" +
+            "select * from products where id in " +
+            "<foreach collection='list' item='id' open='(' separator=',' close=')'>" +
+            "#{id}" +
+            "</foreach>" +
+            "</script>")
+    List<Product> findByIdList(List<Integer> id);
+
+
     @Delete("delete from products where id = #{id}")
     void deleteById(int id);
 

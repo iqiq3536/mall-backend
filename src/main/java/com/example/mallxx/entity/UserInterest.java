@@ -2,7 +2,7 @@ package com.example.mallxx.entity;
 public class UserInterest {
     private int userId;         // 用户ID （外键）
     private int tagId;          // 标签ID （外键）
-    private int interestScore;  // 用户对该标签的兴趣得分 （1-5）
+    private int interestScore;  // 用户对该标签的兴趣得分
 
     // 默认构造函数
     public UserInterest() {}
