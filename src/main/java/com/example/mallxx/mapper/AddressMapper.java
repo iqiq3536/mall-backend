@@ -21,4 +21,10 @@ public interface AddressMapper {
 
     @Select("SELECT * FROM addresses WHERE user_id=#{user_id}")
     List<Address> findAddressesByUserId(@Param("user_id") Integer userId);
+
+    /**
+     * 根据address_id来删除数据，返回Boolean
+     */
+    @Delete("DELETE FROM addresses WHERE address_id=#{address_id}")
+    Boolean deleteAddressByAddressId(@Param("address_id") Integer addressId);
 }
