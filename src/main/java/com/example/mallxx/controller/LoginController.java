@@ -40,4 +40,24 @@ public class LoginController {
         }
         return ResponseEntity.ok(response);
     }
+    @PostMapping("/login1")
+    public ResponseEntity<Map<String, Object>> login1(@RequestBody Map<String, String> loginData) {
+        String username = loginData.get("username");
+        String password = loginData.get("password");
+        System.out.println(username + " " + password);
+        Map<String, Object> response = new HashMap<>();
+        if (!sellerMapper.findByUsernameAndPassword(username, password).isEmpty()) {
+            System.out.println("1");
+            User user = UserMapper.findByUsername(username);
+            response.put("success", true);
+            response.put("message", "登录成功！");
+            response.put("user", user);
+            //token
+        } else {
+            System.out.println("2");
+            response.put("success", false);
+            response.put("message", "登录失败：用户名或密码错误");
+        }
+        return ResponseEntity.ok(response);
+    }
 }
