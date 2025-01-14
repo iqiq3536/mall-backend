@@ -40,7 +40,7 @@ public class LoginController {
         }
         return ResponseEntity.ok(response);
     }
-    @PostMapping("/login1")
+    @PostMapping("/login2")
     public ResponseEntity<Map<String, Object>> login1(@RequestBody Map<String, String> loginData) {
         String username = loginData.get("username");
         String password = loginData.get("password");
