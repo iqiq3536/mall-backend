@@ -12,6 +12,11 @@ public interface ProductMapper {
     @Select("select * from products")
     List<Product> findAll();
 
+
+    @Select("SELECT p.* FROM products p INNER JOIN product_merchant_association pma ON p.id = pma.product_id WHERE pma.merchant_id = #{merchantId}")
+    List<Product> findProductsByMerchantId(@Param("merchantId") int merchantId);
+
+
     @Update("update products set name = #{name}, category = #{category}, img_url = #{img_url}, " +
             "description = #{description}, price = #{price}, stock = #{stock} where id = #{id}")
     void update(@Param("id") int id,
@@ -50,7 +55,10 @@ public interface ProductMapper {
              @Param("price") double price,
              @Param("stock") int stock);
 
-
+    @Insert("insert into products(name, category, img_url, description, price, stock) " +
+            "values(#{name}, #{category}, #{img_url}, #{description}, #{price}, #{stock})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    void add2(Product product);
 
 
 
