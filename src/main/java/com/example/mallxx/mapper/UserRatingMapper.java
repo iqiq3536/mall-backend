@@ -1,5 +1,6 @@
 package com.example.mallxx.mapper;
 
+import com.example.mallxx.DTO.RatingDTO;
 import com.example.mallxx.entity.UserRating;
 import org.apache.ibatis.annotations.*;
 
@@ -79,4 +80,17 @@ public interface UserRatingMapper {
      */
     @Select("SELECT * FROM user_ratings")
     List<UserRating> selectAll();
+
+    @Select("""
+        SELECT 
+            r.rating_id, 
+            u.username, 
+            r.rating, 
+            r.review, 
+            r.rating_date
+        FROM user_ratings r
+        INNER JOIN users u ON r.user_id = u.user_id
+        WHERE r.product_id = #{productId}
+    """)
+    List<RatingDTO> findRatingsByProductId(@Param("productId") int productId);
 }

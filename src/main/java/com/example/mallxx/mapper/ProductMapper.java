@@ -55,10 +55,7 @@ public interface ProductMapper {
              @Param("price") double price,
              @Param("stock") int stock);
 
-    @Insert("insert into products(name, category, img_url, description, price, stock) " +
-            "values(#{name}, #{category}, #{img_url}, #{description}, #{price}, #{stock})")
-    @Options(useGeneratedKeys = true, keyProperty = "id")
-    void add2(Product product);
+
 
 
 
