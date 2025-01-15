@@ -49,7 +49,9 @@ public interface ProductMapper {
              @Param("description") String description,
              @Param("price") double price,
              @Param("stock") int stock);
-
+    //通过商品名称或描述模糊搜索
+    @Select("SELECT * FROM products WHERE name LIKE CONCAT('%', #{keyword}, '%') OR description LIKE CONCAT('%', #{keyword}, '%')")
+    List<Product> searchByKeyword(@Param("keyword") String keyword);
 
 
 
