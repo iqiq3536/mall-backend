@@ -1,5 +1,6 @@
 package com.example.mallxx.mapper;
 
+import com.example.mallxx.entity.Seller;
 import com.example.mallxx.entity.User;
 import org.apache.ibatis.annotations.*;
 
@@ -10,6 +11,15 @@ public interface UserMapper {
     // 查询所有用户
     @Select("SELECT * FROM users")
     List<User> findAll();
+
+    /**
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    @Select("SELECT * FROM users WHERE username = #{username} AND password = #{password}")
+    User loginUser(@Param("username") String username, @Param("password") String password);
 
     // 根据ID查询用户
     @Select("SELECT * FROM users WHERE user_id = #{user_id}")

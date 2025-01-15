@@ -37,14 +37,15 @@ public class UserController {
         return ResponseEntity.ok(User);
     }
     //通过id查找用户，返回单个用户
-    @PostMapping("/findUserById") // 使用POST方法
-    public ResponseEntity<User> selectUserById(@RequestBody User request) {
-        System.out.println(request.getUser_id()+"**********-------------------------");
-        User user = UserMapper.findById(request.getUser_id()); // 使用传入的userId参数查找用户
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-
-        }
+    @RequestMapping("/findUserById") // 使用POST方法
+    public ResponseEntity<User> selectUserById(@CookieValue(value = "user_id", required = false)String User_id ) {
+        //System.out.println(request.getUser_id()+"**********-------------------------");
+        System.out.println(User_id);
+        User user = UserMapper.findById(Integer.parseInt(User_id)); // 使用传入的userId参数查找用户
+//        if (user == null) {
+//            return ResponseEntity.notFound().build();
+//        }
+        System.out.println(user);
         return ResponseEntity.ok(user);
     }
     //通过用户名username查找用户，返回单个用户
