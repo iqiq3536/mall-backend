@@ -39,8 +39,15 @@ public class AddressController {
     }
 
     // 查询用户地址信息
-    @GetMapping("/find/{userId}")
+    /*@GetMapping("/find/{userId}")
     public List<Address> findAddresses(@PathVariable("userId") Integer userId) {
         return addressMapper.findAddressesByUserId(userId);
+    }*/
+    /**
+     * 从RequestBody里获取id来进行获取用户地址信息
+     */
+    @PostMapping("/find")
+    public List<Address> findAddresses(@RequestBody User user) {
+        return addressMapper.findAddressesByUserId(user.getUser_id());
     }
 }
