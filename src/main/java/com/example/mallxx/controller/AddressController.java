@@ -62,10 +62,11 @@ public class AddressController {
     }*/
     @RequestMapping("/find") // 使用POST方法
     public ResponseEntity<List<Address>> find(@CookieValue(value = "user_id", required = false)String User_id ) {
+        System.out.println(User_id +"--------------------");
         List<Address> address = addressMapper.findAddressesByUserId(Integer.parseInt(User_id));
-//        if (user == null) {
-//            return ResponseEntity.notFound().build();
-//        }
+        System.out.println(address);
+        System.out.println(User_id +"--------------------");
+
         return ResponseEntity.ok(address);
     }
 }

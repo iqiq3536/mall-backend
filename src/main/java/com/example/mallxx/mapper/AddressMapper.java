@@ -20,7 +20,7 @@ public interface AddressMapper {
     Boolean updateAddress(@Param("address") Address address);
 
     @Select("SELECT * FROM addresses WHERE user_id=#{user_id}")
-    List<Address> findAddressesByUserId(@Param("user_id") Integer userId);
+    List<Address> findAddressesByUserId(@Param("user_id") int userId);
 
     /**
      * 根据address_id来删除数据，返回Boolean
