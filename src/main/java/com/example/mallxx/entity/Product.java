@@ -1,7 +1,7 @@
 package com.example.mallxx.entity;
 
 public class Product {
-    private int product_id;
+    private int id;
     private String name;
     private String category;
     private String img_link;
@@ -9,12 +9,12 @@ public class Product {
     private double price;
     private int stock;
 
-    public int getProduct_id() {
-        return product_id;
+    public int getId() {
+        return id;
     }
 
-    public void setProduct_id(int product_id) {
-        this.product_id = product_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -68,7 +68,7 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "product_id=" + product_id +
+                "product_id=" + id +
                 ", name='" + name + '\'' +
                 ", category='" + category + '\'' +
                 ", img_link='" + img_link + '\'' +
