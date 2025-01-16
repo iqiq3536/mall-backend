@@ -1,7 +1,6 @@
 package com.example.mallxx.entity;
 
 public class Product {
-
     private int id;
     private String name;
     private String category;
@@ -9,7 +8,6 @@ public class Product {
     private String description;
     private double price;
     private int stock;
-
 
     public int getId() {
         return id;
@@ -73,10 +71,12 @@ public class Product {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", category='" + category + '\'' +
-                ", img_url='" + img_url + '\'' +
+                ", img_link='" + img_url + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", stock=" + stock +
                 '}';
     }
+
+
 }

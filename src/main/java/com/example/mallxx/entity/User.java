@@ -91,4 +91,18 @@ family_name: 家庭名称。
     public void setFamily_name(String family_name) {
         this.family_name = family_name;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "user_id=" + user_id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", full_name='" + full_name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", contact_info='" + contact_info + '\'' +
+                ", family_id=" + family_id +
+                ", family_name='" + family_name + '\'' +
+                '}';
+    }
 }
