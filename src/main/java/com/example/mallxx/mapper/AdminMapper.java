@@ -23,4 +23,12 @@ public interface AdminMapper {
 
     @Delete("DELETE FROM administrators WHERE admin_id=#{adminId}")
     int deleteById(Integer adminId);
+    /**
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    @Select("SELECT * FROM administrators WHERE username = #{username} AND password = #{password}")
+    Admin loginAdmin(@Param("username") String username, @Param("password") String password);
 }
