@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.mallxx.Service.RandomNumberService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -104,7 +106,6 @@ public class UserController {
     // 通过id更新用户，返回包装了布尔结果的ResponseEntity
     @PostMapping("/updateUserById")
     public ResponseEntity<Boolean> updateUserById(@RequestBody User request) {
-        // 假设userMapper已经通过依赖注入获得
         boolean isUpdated = UserMapper.updateUser(request);
         if (isUpdated) {
             return ResponseEntity.ok(true);
@@ -113,13 +114,34 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
         }
     }
-    //添加用户，返回boolean
+    //注册新用户
     @PostMapping("/addUser")
-    public boolean addUser(@RequestBody User request) {
-        //request.setUser_id(UserMapper.findAll().size()+1);
-        request.setUser_id(RandomNumberService.generateRandomInt());
-        return UserMapper.addUser(request);
+    public ResponseEntity<Map<String, Object>> addUser(@RequestBody User request) {
+        Map<String, Object> response = new HashMap<>();
+
+        // 检查用户名是否已经存在
+        boolean userExists = UserMapper.checkUserExists(request.getUsername());
+
+        if (userExists) {
+            response.put("success", false);
+            response.put("message", "用户名已存在");
+        } else {
+            // 如果用户名不存在，则进行插入操作
+            boolean success = UserMapper.addUser(request);
+
+            if (success) {
+                response.put("success", true);
+                response.put("message", "注册大成功");
+            } else {
+                response.put("success", false);
+                response.put("message", "注册失败");
+            }
+        }
+
+        return ResponseEntity.ok(response);
     }
+
+
     // 根据ID删除用户信息
     @PostMapping("/deleteUser")
     public boolean deleteUser(@RequestBody User request) {
