@@ -106,7 +106,6 @@ public class UserController {
     // 通过id更新用户，返回包装了布尔结果的ResponseEntity
     @PostMapping("/updateUserById")
     public ResponseEntity<Boolean> updateUserById(@RequestBody User request) {
-        // 假设userMapper已经通过依赖注入获得
         boolean isUpdated = UserMapper.updateUser(request);
         if (isUpdated) {
             return ResponseEntity.ok(true);
