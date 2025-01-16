@@ -32,6 +32,13 @@ public class AliPayController {
     @Resource
     AliPayConfig aliPayConfig;
 
+    private OrdersMapper ordersMapper;
+    private Order_detailsMapper Order_detailsMapper;
+    public AliPayController (Order_detailsMapper orderDetailsMapper) {
+        this.Order_detailsMapper = orderDetailsMapper;
+    }
+
+
     //    @Resource
     private OrdersMapper shopOrderMapper;
     private static final String GATEWAY_URL = "https://openapi-sandbox.dl.alipaydev.com/gateway.do";
@@ -93,7 +100,7 @@ public class AliPayController {
                 // 更新订单未已支付
 
                 Order_detailsMapper.updateAfterPay("已支付",gmtPayment, Integer.parseInt(tradeNo));
-                OrdersMapper.updateAfterPay("已支付","支付宝", Integer.parseInt(tradeNo));
+                ordersMapper.updateAfterPay("已支付","支付宝", Integer.parseInt(tradeNo));
 //                order.setCheckoutTime(params.get("gmt_payment"));
 //                shopOrderMapper.updateById(order);
             }

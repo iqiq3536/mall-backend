@@ -30,7 +30,8 @@ public interface OrdersMapper {
     //更改order_id的所有支付状态以及支付方式
     @Update("update orders set order_status=#{order_status},payment_method=#{payment_method}" +
             "where order_id=#{order_id}")
-    static void updateAfterPay(String order_status,String payment_method,int order_id){
+    public void updateAfterPay(String order_status,String payment_method,int order_id);
+    /*static void updateAfterPay(String order_status,String payment_method,int order_id){
         return;
-    }
+    }*/
 }
