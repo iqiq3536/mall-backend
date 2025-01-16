@@ -39,7 +39,7 @@ public class AddressController {
     }
 
     // 更新地址信息
-    @PutMapping("/update")
+    @PostMapping("/update")
     public boolean updateAddress(@RequestBody Address address) {
         return addressMapper.updateAddress(address);
     }
