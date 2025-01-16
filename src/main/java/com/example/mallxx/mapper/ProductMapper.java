@@ -73,6 +73,12 @@ public interface ProductMapper {
             "ORDER BY `order` ASC")
     List<ProductDetail> getProductDetailsByProductId(Long productId);
 
+    /**
+     * 通过id获取商品name和img_url
+     */
+    @Select("SELECT id, name, img_url FROM products WHERE id = #{id}")
+    Product getProductNameAndImgUrlById( int id);
+
 
 
 

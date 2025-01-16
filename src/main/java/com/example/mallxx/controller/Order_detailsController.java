@@ -2,21 +2,35 @@ package com.example.mallxx.controller;
 
 import com.example.mallxx.entity.Cart_details;
 import com.example.mallxx.entity.Order_details;
+import com.example.mallxx.entity.Product;
 import com.example.mallxx.mapper.Order_detailsMapper;
+import com.example.mallxx.mapper.ProductMapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Map;
+
 import com.example.mallxx.tools.RandomStringGenerator;
 
 @RestController
 @RequestMapping("/api/order_details")
 public class Order_detailsController {
+
+    private final ProductMapper ProductMapper;
     private final Order_detailsMapper order_detailsMapper;
-    public Order_detailsController(Order_detailsMapper order_detailsMapper) {
+    public Order_detailsController(Order_detailsMapper order_detailsMapper, ProductMapper ProductMapper) {
         this.order_detailsMapper = order_detailsMapper;
+        this.ProductMapper = ProductMapper;
     }
 
     //成功
@@ -45,10 +59,31 @@ public class Order_detailsController {
     //成功
     @GetMapping("/getOrder_details_merchant_list")
     public List<Order_details> getOrder_details_merchant(@CookieValue(value = "merchantId", required = false)String merchant_id){
+        System.out.println(merchant_id+"+-+-+-++++-+++++-+");
         List<Order_details> order_details_list=order_detailsMapper.selectByMerchantId(Integer.parseInt(merchant_id));
-        System.out.println(order_details_list);
+        System.out.println(order_details_list+"+++++++++++++++");
         return order_details_list;
     }
+
+    /**
+     * 通过productId获取商品名称和图片URL
+     */
+    @PostMapping("/get_product")
+    public ResponseEntity<Product> get_product(@RequestBody Map<String, Object> requestBody) {
+        // 假设 productId 是一个字符串类型的参数
+        //System.out.println("***********************************++++");
+        //System.out.println(requestBody);
+        //System.out.println(requestBody.get("product_id"));
+        int productId = Integer.parseInt(requestBody.get("product_id").toString());
+        // 调用方法获取商品信息
+        Product productInfo = ProductMapper.getProductNameAndImgUrlById(productId);
+        System.out.println("+++++++++++++++++++++++++++++++++++++++");
+        System.out.println(productInfo);
+        // 检查是否成功获取到了数据
+
+            return ResponseEntity.ok(productInfo);
+    }
+
 
     //成功
     @PostMapping("/update_Allpaystatus")
@@ -59,28 +94,35 @@ public class Order_detailsController {
     }
 
     //成功
-    @PostMapping("/update_Onepaystatus")
-    public void update_Onepaystatus(@Param("order_detail_status") String order_detail_status,
-                                 @Param("order_detail_id") String order_detail_id){
+    @PutMapping("/update_Onepaystatus")
+    public void updateOnepaystatus(@RequestBody Map<String, Object> requestBody){
+        String orderDetailStatus = (String)requestBody.get("order_detail_status");
+        Integer orderDetailId = (Integer)requestBody.get("order_detail_id"); // 修改为Integer类型
+
+        System.out.println(orderDetailStatus+"+++++++++++++++++++++++"+orderDetailId);
         Date date = new Date();
         // 创建SimpleDateFormat对象，指定日期时间格式
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         // 使用SimpleDateFormat对象格式化Date对象，得到当前日期时间字符串
         String last_update_at = sdf.format(date);
-        order_detailsMapper.updateOrder_detail_status_One(order_detail_status,last_update_at,Integer.parseInt(order_detail_id));
+        order_detailsMapper.updateOrder_detail_status_One(orderDetailStatus, last_update_at, orderDetailId);
     }
 
+
     //成功
-    @PostMapping("/update_Oneshipstatus")
-    public void update_Oneshipstatus(@Param("shipping_status") String shipping_status,
-                                    @Param("order_detail_id") String order_detail_id){
+    @PutMapping("/update_Oneshipstatus")
+    public void update_Oneshipstatus(@RequestBody Map<String, Object> requestBody) {
+        String shipping_status = (String) requestBody.get("shipping_status");
+        Integer order_detail_id = (Integer) requestBody.get("order_detail_id"); // 修改为Integer类型
+
         Date date = new Date();
         // 创建SimpleDateFormat对象，指定日期时间格式
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         // 使用SimpleDateFormat对象格式化Date对象，得到当前日期时间字符串
         String last_update_at = sdf.format(date);
-        order_detailsMapper.updateShipping_status(shipping_status,last_update_at,Integer.parseInt(order_detail_id));
+        order_detailsMapper.updateShipping_status(shipping_status, last_update_at, order_detail_id);
     }
+
 
     //成功
     @PostMapping("/updateShopping_address")
