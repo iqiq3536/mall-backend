@@ -60,6 +60,9 @@ public interface ProductMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void add2(Product product);
 
+    //通过商品名称或描述模糊搜索
+    @Select("SELECT * FROM products WHERE name LIKE CONCAT('%', #{keyword}, '%') OR description LIKE CONCAT('%', #{keyword}, '%')")
+    List<Product> searchByKeyword(@Param("keyword") String keyword);
 
 
 
