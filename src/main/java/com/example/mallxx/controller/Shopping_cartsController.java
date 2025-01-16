@@ -53,7 +53,7 @@ public class Shopping_cartsController {
      * @param user_id
      */
     @PostMapping("/getCart3")
-    public ResponseEntity<List<Shopping_carts>> getCart3(@CookieValue(value = "user_id", required = false)String user_id) {
+    public ResponseEntity<List<CartDetailsWithProduct>> getCart3(@CookieValue(value = "user_id", required = false)String user_id) {
         int id=Integer.parseInt(user_id);
         System.out.println(id);
         return ResponseEntity.ok(shopping_cartsMapper.findByUser_id3(id));

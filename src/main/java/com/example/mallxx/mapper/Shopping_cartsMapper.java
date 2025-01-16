@@ -98,5 +98,5 @@ public interface Shopping_cartsMapper {
             "ORDER BY " +
             "    u.user_id, sc.cart_id, cd.cart_details_id;"
             )
-    List<Shopping_carts> findByUser_id3(@Param("user_id") int user_id);
+    List<CartDetailsWithProduct> findByUser_id3(@Param("user_id") int user_id);
 }
