@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.mallxx.Service.RandomNumberService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -115,11 +117,22 @@ public class UserController {
     }
     //添加用户，返回boolean
     @PostMapping("/addUser")
-    public boolean addUser(@RequestBody User request) {
-        //request.setUser_id(UserMapper.findAll().size()+1);
-        request.setUser_id(RandomNumberService.generateRandomInt());
-        return UserMapper.addUser(request);
+    public ResponseEntity<Map<String, Object>> addUser(@RequestBody User request) {
+        Map<String, Object> response = new HashMap<>();
+        boolean success = UserMapper.addUser(request);
+
+        if (success) {
+            response.put("success", true);
+            response.put("message", "注册成功");
+        } else {
+            response.put("success", false);
+            response.put("message", "用户名已存在");
+        }
+
+        return ResponseEntity.ok(response);
     }
+
+
     // 根据ID删除用户信息
     @PostMapping("/deleteUser")
     public boolean deleteUser(@RequestBody User request) {

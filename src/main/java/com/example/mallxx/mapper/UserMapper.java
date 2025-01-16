@@ -37,9 +37,10 @@ public interface UserMapper {
     List<User> findUsersByFamilyName(@Param("familyName") String familyName);
 
     // 插入新用户
-    @Insert("INSERT INTO users(user_id, username, password, full_name, gender, contact_info, family_id, family_name) " +
-            "VALUES(#{user.user_id}, #{user.username}, #{user.password}, #{user.full_name}, #{user.gender}, #{user.contact_info}, #{user.family_id}, #{user.family_name})")
+    @Insert("INSERT INTO users(username, password, full_name, gender, contact_info) " +
+            "VALUES(#{user.username}, #{user.password}, #{user.full_name}, #{user.gender}, #{user.contact_info})")
     Boolean addUser(@Param("user") User user);
+
 
     // 更新用户信息
     @Update("UPDATE users SET username = #{user.username}, password = #{user.password}, full_name = #{user.full_name}, " +
