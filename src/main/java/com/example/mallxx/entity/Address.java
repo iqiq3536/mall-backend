@@ -6,7 +6,7 @@ public class Address {
     private String province;
     private String city;
     private String county;
-    private String detailedAddress;
+    private String detailed_address;
     private int  user_id;
 
     public int getAddress_id() {
@@ -41,12 +41,12 @@ public class Address {
         this.county = county;
     }
 
-    public String getDetailedAddress() {
-        return detailedAddress;
+    public String getDetailed_address() {
+        return detailed_address;
     }
 
-    public void setDetailedAddress(String detailedAddress) {
-        this.detailedAddress = detailedAddress;
+    public void setDetailed_address(String detailed_address) {
+        this.detailed_address = detailed_address;
     }
 
     public int getUser_id() {
@@ -64,7 +64,7 @@ public class Address {
                 ", province='" + province + '\'' +
                 ", city='" + city + '\'' +
                 ", county='" + county + '\'' +
-                ", detailedAddress='" + detailedAddress + '\'' +
+                ", detailed_address='" + detailed_address + '\'' +
                 ", user_id=" + user_id +
                 '}';
     }
