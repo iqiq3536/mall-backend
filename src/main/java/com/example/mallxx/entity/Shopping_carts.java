@@ -16,4 +16,12 @@ public class Shopping_carts {
     public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
+
+    @Override
+    public String toString() {
+        return "Shopping_carts{" +
+                "cart_id=" + cart_id +
+                ", user_id=" + user_id +
+                '}';
+    }
 }

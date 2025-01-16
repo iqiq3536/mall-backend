@@ -53,4 +53,16 @@ public class Orders {
         this.shipping_address = shipping_address;
     }
 
+    @Override
+    public String toString() {
+        return "Orders{" +
+                "order_id=" + order_id +
+                ", user_id=" + user_id +
+                ", order_status='" + order_status + '\'' +
+                ", create_at='" + create_at + '\'' +
+                ", total_amount=" + total_amount +
+                ", payment_method='" + payment_method + '\'' +
+                ", shipping_address='" + shipping_address + '\'' +
+                '}';
+    }
 }

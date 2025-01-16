@@ -9,6 +9,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -19,32 +21,50 @@ public class OrdersController {
         this.ordersMapper = ordersMapper;
     }
 
+    //成功
     @GetMapping("/getOrders_list")
-    public List<Orders> getOrdersList(@RequestBody User user) {
-        List<Orders> orders=ordersMapper.selectByUserId(user);
+    public List<Orders> getOrdersList(@CookieValue(value = "user_id", required = false)String user_id) {
+        List<Orders> orders=ordersMapper.selectByUserId(Integer.parseInt(user_id));
+        System.out.println(orders);
         return orders;
     }
 
+    //成功
     @GetMapping("/getOrders_listByOrder_status")
-    public List<Orders> getOrdersListByOrder_status(@RequestBody User user,  @Param("order_status") String order_status) {
-        List<Orders> orders=ordersMapper.selectByOrderStatus(user,order_status);
+    public List<Orders> getOrdersListByOrder_status(@CookieValue(value = "user_id", required = false)String user_id,  @Param("order_status") String order_status) {
+        List<Orders> orders=ordersMapper.selectByOrderStatus(Integer.parseInt(user_id),order_status);
+        System.out.println(orders);
         return orders;
     }
 
+    //成功
     @PostMapping("/insertOrders")
-    public void insertOrders(@RequestBody List<Cart_details> cart_details) {
-        //int order_id=ordersMapper.insert(orders);
-        //还需删除购物车选中部分
-        //还需insert order_details
+    public void insertOrders(@CookieValue(value = "user_id", required = false)String user_id,@Param("total_amount") String total_amount) {
+        Orders orders=new Orders();
+        orders.setOrder_status("未支付");
+        orders.setUser_id(Integer.parseInt(user_id));
+        orders.setTotal_amount(Double.parseDouble(total_amount));
+        orders.setCreate_at(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        System.out.println(orders);
+        ordersMapper.insert(orders);
     }
 
+    //成功
     @PostMapping("/updateOrders_status")
-    public void updateOrders_status(@Param("order_status") String order_status) {
-        ordersMapper.update(order_status);
+    public void updateOrders_status(@Param("order_status") String order_status,@Param("order_id") String order_id) {
+        ordersMapper.update(order_status,Integer.parseInt(order_id));
     }
 
+    //成功
     @PostMapping("/deleteOrder")
-    public void deleteOrder(@RequestBody Orders orders) {
-        ordersMapper.delete(orders);
+    public void deleteOrder(@Param("order_id") String order_id) {
+        ordersMapper.delete(Integer.parseInt(order_id));
+    }
+
+    //成功
+    @PostMapping("/updateShopping_address")
+    public void update_Shopping_address(@Param("shipping_address") String shipping_address,
+                                        @Param("order_id") String order_id){
+        ordersMapper.updateShipping_address(shipping_address,Integer.parseInt(order_id));
     }
 }
