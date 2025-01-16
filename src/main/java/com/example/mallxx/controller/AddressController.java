@@ -41,6 +41,7 @@ public class AddressController {
     // 更新地址信息
     @PostMapping("/update")
     public boolean updateAddress(@RequestBody Address address) {
+        System.out.println(address);
         return addressMapper.updateAddress(address);
     }
 
