@@ -20,12 +20,12 @@ import java.util.List;
 @RequestMapping("/api/product_images")
 public class ProductImageController {
 
-    private final String basePath = "D:/Ital/4033"; // 图片基础路径
+    private final String basePath = "E:/image"; // 图片基础路径
 
     @Autowired
     private ProductDetailMapper productDetailMapper;
 
-    // 获取图片列表
+    // 获取图片详情列表
     @GetMapping("/{productId}")
     public ResponseEntity<List<ProductDetail>> getProductImages(@PathVariable Long productId) {
         try {

@@ -2,6 +2,7 @@ package com.example.mallxx.controller;
 
 
 import com.example.mallxx.entity.Merchant;
+import com.example.mallxx.entity.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,7 @@ public class AdminController {
     public ResponseEntity<List<Admin>> getAllUser() {
         //List<User> User = UserMapper.findAll();
         List<Admin> Admin = adminMapper.selectAll();
+        System.out.println(Admin);
 
         return ResponseEntity.ok(Admin);
     }
@@ -39,30 +41,30 @@ public class AdminController {
     public ResponseEntity<List<Merchant>> getAllMerchant() {
         //List<User> User = UserMapper.findAll();
         List<Merchant> Merchant = MerchantMapper.findAll();
+        System.out.println(Merchant);
         return ResponseEntity.ok(Merchant);
     }
+
     /**
      * 根据id删除商家
      */
-    @RequestMapping("/deleteMerchant")
-    public boolean deleteMerchant(int id) {
-        MerchantMapper.deleteById(id);
-        return true;
+    @PostMapping("/deleteMerchant")
+    public boolean deleteMerchant(@RequestBody Merchant request) {
+        return MerchantMapper.deletemerchant(request.getId());
     }
+
 
     /**
      * 根据id修改商家信息
      */
-    @RequestMapping(value = "/updateMerchant", method = RequestMethod.PUT)
-    public ResponseEntity<String> updateMerchant(@RequestBody Merchant merchant) {
-        try {
-            MerchantMapper.update(merchant.getId(), merchant.getUsername(),
-                    merchant.getPassword(), merchant.getShop_name(),
-                    merchant.getContact_info(), merchant.getAddress());
-            return new ResponseEntity<>("Merchant updated successfully.", HttpStatus.OK);
-        } catch (Exception e) {
-            // Handle exception appropriately
-            return new ResponseEntity<>("Failed to update merchant: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    @PostMapping("/updateMerchant")
+    public ResponseEntity<Boolean> updateMerchant(@RequestBody Merchant request) {
+        boolean isUpdated = MerchantMapper.updateMerchant(request);
+        if (isUpdated) {
+            return ResponseEntity.ok(true);
+        } else {
+            // 如果更新失败，返回400 Bad Request 或者其他适合的状态码
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
         }
     }
 

@@ -1,6 +1,7 @@
 package com.example.mallxx.mapper;
 
 import com.example.mallxx.entity.Product;
+import com.example.mallxx.entity.ProductDetail;
 import com.example.mallxx.entity.Seller;
 import org.apache.ibatis.annotations.*;
 
@@ -64,7 +65,13 @@ public interface ProductMapper {
     @Select("SELECT * FROM products WHERE name LIKE CONCAT('%', #{keyword}, '%') OR description LIKE CONCAT('%', #{keyword}, '%')")
     List<Product> searchByKeyword(@Param("keyword") String keyword);
 
-
+    @Select("SELECT id, product_id, " +
+            "CONCAT('http://localhost:8082/api/product_images/file/', REPLACE(SUBSTRING_INDEX(url, '\\\\', -1), '\\\\', '')) AS url, " +
+            "`order` " +
+            "FROM product_details " +
+            "WHERE product_id = #{productId} " +
+            "ORDER BY `order` ASC")
+    List<ProductDetail> getProductDetailsByProductId(Long productId);
 
 
 
