@@ -26,11 +26,11 @@ public class TestController {
 
         return products;
     }
-    /*@RequestMapping("/api/search")
+    @RequestMapping("/api/search")
     public List<Product> searchProducts(@RequestParam("keyword") String keyword) {
             // 调用 Mapper 搜索
             return productMapper.searchByKeyword(keyword);
 
-    }*/
+    }
 
 }
