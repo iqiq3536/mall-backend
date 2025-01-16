@@ -115,18 +115,28 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
         }
     }
-    //添加用户，返回boolean
+    //注册新用户
     @PostMapping("/addUser")
     public ResponseEntity<Map<String, Object>> addUser(@RequestBody User request) {
         Map<String, Object> response = new HashMap<>();
-        boolean success = UserMapper.addUser(request);
 
-        if (success) {
-            response.put("success", true);
-            response.put("message", "注册成功");
-        } else {
+        // 检查用户名是否已经存在
+        boolean userExists = UserMapper.checkUserExists(request.getUsername());
+
+        if (userExists) {
             response.put("success", false);
             response.put("message", "用户名已存在");
+        } else {
+            // 如果用户名不存在，则进行插入操作
+            boolean success = UserMapper.addUser(request);
+
+            if (success) {
+                response.put("success", true);
+                response.put("message", "注册大成功");
+            } else {
+                response.put("success", false);
+                response.put("message", "注册失败");
+            }
         }
 
         return ResponseEntity.ok(response);

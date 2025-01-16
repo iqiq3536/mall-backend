@@ -40,7 +40,9 @@ public interface UserMapper {
     @Insert("INSERT INTO users(username, password, full_name, gender, contact_info) " +
             "VALUES(#{user.username}, #{user.password}, #{user.full_name}, #{user.gender}, #{user.contact_info})")
     Boolean addUser(@Param("user") User user);
-
+    // 检查用户名是否已存在
+    @Select("SELECT COUNT(*) > 0 FROM users WHERE username = #{username}")
+    Boolean checkUserExists(@Param("username") String username);
 
     // 更新用户信息
     @Update("UPDATE users SET username = #{user.username}, password = #{user.password}, full_name = #{user.full_name}, " +
