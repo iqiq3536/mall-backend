@@ -1,55 +1,56 @@
 package com.example.mallxx.entity;
 
 public class CartDetailsWithProduct {
-    private int userId;
+    private int user_id;
     private String username;
-    private int cartDetailsId;
-    private int cartId;
-    private int productId;
+    private int cart_details_id;
+    private int cart_id;
+    private int product_id;
     private int quantity;
-    private double unitPrice;
-    private int merchantId;
-    private String productName;
-    private String imgUrl;
+    private double unit_price;
+    private int merchant_id;
+    private String product_name;
+    private String img_url;
 
-    public int getUserId() {
-        return userId;
+
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
-    public int getCartDetailsId() {
-        return cartDetailsId;
+    public String getImg_url() {
+        return img_url;
     }
 
-    public void setCartDetailsId(int cartDetailsId) {
-        this.cartDetailsId = cartDetailsId;
+    public void setImg_url(String img_url) {
+        this.img_url = img_url;
     }
 
-    public String getUsername() {
-        return username;
+    public String getProduct_name() {
+        return product_name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
     }
 
-    public int getCartId() {
-        return cartId;
+    public int getMerchant_id() {
+        return merchant_id;
     }
 
-    public void setCartId(int cartId) {
-        this.cartId = cartId;
+    public void setMerchant_id(int merchant_id) {
+        this.merchant_id = merchant_id;
     }
 
-    public int getProductId() {
-        return productId;
+    public double getUnit_price() {
+        return unit_price;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setUnit_price(double unit_price) {
+        this.unit_price = unit_price;
     }
 
     public int getQuantity() {
@@ -60,51 +61,51 @@ public class CartDetailsWithProduct {
         this.quantity = quantity;
     }
 
-    public double getUnitPrice() {
-        return unitPrice;
+    public int getProduct_id() {
+        return product_id;
     }
 
-    public void setUnitPrice(double unitPrice) {
-        this.unitPrice = unitPrice;
+    public void setProduct_id(int product_id) {
+        this.product_id = product_id;
     }
 
-    public int getMerchantId() {
-        return merchantId;
+    public int getCart_id() {
+        return cart_id;
     }
 
-    public void setMerchantId(int merchantId) {
-        this.merchantId = merchantId;
+    public void setCart_id(int cart_id) {
+        this.cart_id = cart_id;
     }
 
-    public String getProductName() {
-        return productName;
+    public int getCart_details_id() {
+        return cart_details_id;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setCart_details_id(int cart_details_id) {
+        this.cart_details_id = cart_details_id;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
+    public String getUsername() {
+        return username;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
     public String toString() {
         return "CartDetailsWithProduct{" +
-                "userId=" + userId +
+                "userId=" + user_id +
                 ", username='" + username + '\'' +
-                ", cartDetailsId=" + cartDetailsId +
-                ", cartId=" + cartId +
-                ", productId=" + productId +
+                ", cart_details_id=" + cart_details_id +
+                ", cart_id=" + cart_id +
+                ", product_id=" + product_id +
                 ", quantity=" + quantity +
-                ", unitPrice=" + unitPrice +
-                ", merchantId=" + merchantId +
-                ", productName='" + productName + '\'' +
-                ", imgUrl='" + imgUrl + '\'' +
+                ", unit_price=" + unit_price +
+                ", merchant_id=" + merchant_id +
+                ", name='" + product_name + '\'' +
+                ", img_url='" + img_url + '\'' +
                 '}';
     }
 }

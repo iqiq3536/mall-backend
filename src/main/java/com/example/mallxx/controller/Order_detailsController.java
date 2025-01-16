@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Map;
+
 import com.example.mallxx.tools.RandomStringGenerator;
 
 @RestController
@@ -59,21 +61,25 @@ public class Order_detailsController {
     }
 
     //成功
-    @PostMapping("/update_Onepaystatus")
-    public void update_Onepaystatus(@Param("order_detail_status") String order_detail_status,
-                                 @Param("order_detail_id") String order_detail_id){
+    @PutMapping("/update_Onepaystatus")
+    public void update_Onepaystatus(@RequestBody Map<String, Object> params) {
+        String order_detail_status = (String) params.get("order_detail_status");
+        String order_detail_id = String.valueOf(params.get("order_detail_id"));
         Date date = new Date();
         // 创建SimpleDateFormat对象，指定日期时间格式
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         // 使用SimpleDateFormat对象格式化Date对象，得到当前日期时间字符串
         String last_update_at = sdf.format(date);
+        System.out.println(order_detail_status);
+        System.out.println(order_detail_id);
         order_detailsMapper.updateOrder_detail_status_One(order_detail_status,last_update_at,Integer.parseInt(order_detail_id));
     }
 
     //成功
-    @PostMapping("/update_Oneshipstatus")
-    public void update_Oneshipstatus(@Param("shipping_status") String shipping_status,
-                                    @Param("order_detail_id") String order_detail_id){
+    @PutMapping("/update_Oneshipstatus")
+    public void update_Oneshipstatus(@RequestBody Map<String, Object> params){
+        String shipping_status = (String) params.get("shipping_status");
+        String order_detail_id = String.valueOf(params.get("order_detail_id"));
         Date date = new Date();
         // 创建SimpleDateFormat对象，指定日期时间格式
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -84,8 +90,11 @@ public class Order_detailsController {
 
     //成功
     @PostMapping("/updateShopping_address")
-    public void update_Shopping_address(@Param("shipping_address") String shipping_address,
-                                        @Param("order_id") String order_id){
+    public void update_Shopping_address(@RequestBody Map<String, Object> params){
+        String shipping_address = (String) params.get("shipping_address");
+        String order_id = String.valueOf(params.get("order_id"));
+        System.out.println(order_id);
+        System.out.println(shipping_address);
         order_detailsMapper.updateShipping_address(shipping_address,Integer.parseInt(order_id));
     }
 

@@ -40,7 +40,7 @@ public class Shopping_cartsController {
      * 通过user_id获取购物车商品信息
      * @param user_id
      */
-    @PostMapping("/getCart2")
+    @GetMapping("/getCart2")
     public ResponseEntity<List<CartDetailsWithProduct>> getCart2(@CookieValue(value = "user_id", required = false)String user_id) {
         int id=Integer.parseInt(user_id);
         System.out.println(id);
@@ -52,7 +52,7 @@ public class Shopping_cartsController {
      * 通过user_id获取家庭购物车
      * @param user_id
      */
-    @PostMapping("/getCart3")
+    @GetMapping("/getCart3")
     public ResponseEntity<List<CartDetailsWithProduct>> getCart3(@CookieValue(value = "user_id", required = false)String user_id) {
         int id=Integer.parseInt(user_id);
         System.out.println(id);
@@ -60,8 +60,8 @@ public class Shopping_cartsController {
     }
 
     //成功
-    @PostMapping("/InsertShopping_carts")
-    public void AddShopping_carts(@CookieValue(value = "user_id", required = false)String user_id) {
+    @GetMapping("/InsertShopping_carts")
+    public void AddShopping_carts(@CookieValue(value = "user_id", required = false) String user_id) {
         System.out.println(user_id);
         Shopping_carts shopping_carts=shopping_cartsMapper.findByUser_id(Integer.parseInt(user_id));
         if(shopping_carts==null){

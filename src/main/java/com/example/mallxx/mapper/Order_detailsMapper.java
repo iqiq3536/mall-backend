@@ -47,7 +47,7 @@ public interface Order_detailsMapper {
             "where order_id=#{order_id}")
     public void updateAfterPay(String order_detail_status,String last_updated_at,int order_id);*/
 
-    @Update("update order_details set order_detail_status=#{order_detail_status},last_updated_at=#{last_updated_at} " +
+    @Update("update order_details set order_detail_status=#{order_detail_status},last_update_at=#{last_updated_at} " +
             "where order_id=#{order_id}")
     public void updateAfterPay(String order_detail_status, String last_updated_at, int order_id);
     /*static void updateAfterPay(String order_detail_status, String last_updated_at, int order_id) {
