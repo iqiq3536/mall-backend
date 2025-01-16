@@ -1,5 +1,6 @@
 package com.example.mallxx.mapper;
 
+import com.example.mallxx.entity.CartDetailsWithProduct;
 import com.example.mallxx.entity.Shopping_carts;
 import com.example.mallxx.entity.User;
 import org.apache.ibatis.annotations.*;
@@ -34,15 +35,19 @@ public interface Shopping_cartsMapper {
             "    cd.product_id, " +
             "    cd.quantity, " +
             "    cd.unit_price, " +
-            "    cd.merchant_id " +
+            "    cd.merchant_id, " +
+            "    p.name AS product_name, " +
+            "    p.img_url " +
             "FROM " +
             "    shopping_carts AS sc " +
             "JOIN " +
             "    cart_details AS cd ON sc.cart_id = cd.cart_id " +
+            "JOIN " +
+            "    products AS p ON cd.product_id = p.product_id " +
             "WHERE " +
             "    sc.user_id = #{user_id} "
     )
-    List<Shopping_carts> findByUser_id2(@Param("user_id") int user_id);
+    List<CartDetailsWithProduct> findByUser_id2(@Param("user_id") int user_id);
 
     /**
      * SELECT

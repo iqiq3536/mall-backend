@@ -1,5 +1,6 @@
 package com.example.mallxx.controller;
 
+import com.example.mallxx.entity.CartDetailsWithProduct;
 import com.example.mallxx.entity.Shopping_carts;
 import com.example.mallxx.entity.User;
 import com.example.mallxx.mapper.Shopping_cartsMapper;
@@ -40,7 +41,7 @@ public class Shopping_cartsController {
      * @param user_id
      */
     @PostMapping("/getCart2")
-    public ResponseEntity<List<Shopping_carts>> getCart2(@CookieValue(value = "user_id", required = false)String user_id) {
+    public ResponseEntity<List<CartDetailsWithProduct>> getCart2(@CookieValue(value = "user_id", required = false)String user_id) {
         int id=Integer.parseInt(user_id);
         System.out.println(id);
         return ResponseEntity.ok(shopping_cartsMapper.findByUser_id2(id));
