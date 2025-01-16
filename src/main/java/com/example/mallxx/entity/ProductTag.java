@@ -2,7 +2,7 @@ package com.example.mallxx.entity;
 
 public class ProductTag {
     private int id;
-    private String name;
+    private String tag_name;
     private Category category;
 
     public enum Category { FLOWER, BIRD, FISH, PET, INSECT }
@@ -10,13 +10,6 @@ public class ProductTag {
     // Constructors
     public ProductTag() {}
 
-    public ProductTag(int id, String name, Category category) {
-        this.id = id;
-        this.name = name;
-        this.category = category;
-    }
-
-    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -25,12 +18,12 @@ public class ProductTag {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTag_name() {
+        return tag_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTag_name(String tag_name) {
+        this.tag_name = tag_name;
     }
 
     public Category getCategory() {
@@ -39,14 +32,5 @@ public class ProductTag {
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    @Override
-    public String toString() {
-        return "ProductTag{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", category=" + category +
-                '}';
     }
 }
