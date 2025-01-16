@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -39,14 +40,16 @@ public class Cart_detailsController {
 
     //成功
     @DeleteMapping("/deleteAll")
-    public ResponseEntity<Void> deleteCart_details(@Param("cart_id") String cart_id) {
+    public ResponseEntity<Void> deleteCart_details(@RequestBody Map<String, Object> params) {
+        String cart_id=String.valueOf(params.get("cart_id"));
         cart_detailsMapper.DeleteByCart_id(Integer.parseInt(cart_id));
         return ResponseEntity.noContent().build();
     }
 
     //成功
     @DeleteMapping("deleteOne")
-    public ResponseEntity<Void> deleteCart_details_one(@Param("cart_details_id") String cart_details_id) {
+    public ResponseEntity<Void> deleteCart_details_one(@RequestBody Map<String, Object> params) {
+        String cart_details_id=String.valueOf(params.get("cart_details_id"));
         cart_detailsMapper.DeleteByCart_details_id(Integer.parseInt(cart_details_id));
         return ResponseEntity.noContent().build();
     }
@@ -62,7 +65,9 @@ public class Cart_detailsController {
 
     //成功
     @PutMapping("/edit")
-    public ResponseEntity<Void> editCart_details(@Param("cart_detail_id") String cart_detail_id, @Param("quantity") String quantity) {
+    public ResponseEntity<Void> editCart_details(@RequestBody Map<String, Object> params) {
+        String cart_detail_id=String.valueOf(params.get("cart_details_id"));
+        String quantity=String.valueOf(params.get("quantity"));
         Cart_details cart_details=cart_detailsMapper.findCart_detailsByCart_details_id(Integer.parseInt(cart_detail_id));
         cart_details.setQuantity(Integer.parseInt(quantity));
         cart_details.setCart_details_id(Integer.parseInt(cart_detail_id));

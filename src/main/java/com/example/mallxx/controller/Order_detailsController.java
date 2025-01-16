@@ -126,8 +126,11 @@ public class Order_detailsController {
 
     //成功
     @PostMapping("/updateShopping_address")
-    public void update_Shopping_address(@Param("shipping_address") String shipping_address,
-                                        @Param("order_id") String order_id){
+    public void update_Shopping_address(@RequestBody Map<String, Object> params){
+        String shipping_address = (String) params.get("shipping_address");
+        String order_id = String.valueOf(params.get("order_id"));
+        System.out.println(order_id);
+        System.out.println(shipping_address);
         order_detailsMapper.updateShipping_address(shipping_address,Integer.parseInt(order_id));
     }
 

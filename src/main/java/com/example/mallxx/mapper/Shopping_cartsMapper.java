@@ -30,6 +30,7 @@ public interface Shopping_cartsMapper {
      *     sc.user_id = 1; -- 这里用?表示参数位置，实际执行时需要替换为具体的user_id值
      */
     @Select("SELECT " +
+            "    sc.user_id, " +
             "    cd.cart_details_id, " +
             "    sc.cart_id, " +
             "    cd.product_id, " +
@@ -43,7 +44,7 @@ public interface Shopping_cartsMapper {
             "JOIN " +
             "    cart_details AS cd ON sc.cart_id = cd.cart_id " +
             "JOIN " +
-            "    products AS p ON cd.product_id = p.product_id " +
+            "    products AS p ON cd.product_id = p.id " +
             "WHERE " +
             "    sc.user_id = #{user_id} "
     )

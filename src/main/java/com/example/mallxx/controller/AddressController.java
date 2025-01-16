@@ -65,7 +65,7 @@ public class AddressController {
         List<Address> address = addressMapper.findAddressesByUserId(Integer.parseInt(User_id));
         //System.out.println(address);
         //System.out.println(User_id +"--------------------");
-
+        System.out.println(address);
         return ResponseEntity.ok(address);
     }
 }

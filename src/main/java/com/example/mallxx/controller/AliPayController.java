@@ -24,18 +24,19 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
-@RequestMapping("alipay")
 @Transactional(rollbackFor = Exception.class)
 @Slf4j
+@RequestMapping("/alipay")
 public class AliPayController {
 
     @Resource
     AliPayConfig aliPayConfig;
 
-    private OrdersMapper ordersMapper;
-    private Order_detailsMapper Order_detailsMapper;
-    public AliPayController (Order_detailsMapper orderDetailsMapper) {
+    private final OrdersMapper ordersMapper;
+    private final Order_detailsMapper Order_detailsMapper;
+    public AliPayController (Order_detailsMapper orderDetailsMapper,OrdersMapper ordersMapper) {
         this.Order_detailsMapper = orderDetailsMapper;
+        this.ordersMapper = ordersMapper;
     }
 
 
@@ -47,14 +48,17 @@ public class AliPayController {
     private static final String SIGN_TYPE = "RSA2";
 
     @GetMapping("/pay") // &subject=xxx&traceNo=xxx&totalAmount=xxx
-    public void pay(String order_id,String total_amount,String address_id, HttpServletResponse httpResponse) throws Exception {
+    public void pay(String order_id,String total_amount,String shipping_address, HttpServletResponse httpResponse) throws Exception {
+        System.out.println(order_id);
+        System.out.println(total_amount);
+        System.out.println(shipping_address);
         AlipayClient alipayClient = new DefaultAlipayClient(GATEWAY_URL, aliPayConfig.getAppId(),
                 aliPayConfig.getAppPrivateKey(), FORMAT, CHARSET, aliPayConfig.getAlipayPublicKey(), SIGN_TYPE);
         AlipayTradePagePayRequest request = new AlipayTradePagePayRequest();
         request.setNotifyUrl(aliPayConfig.getNotifyUrl());
         request.setBizContent("{\"out_trade_no\":\"" + order_id + "\","
                 + "\"total_amount\":\"" + total_amount + "\","
-                + "\"subject\":\"" + address_id + "\","
+                + "\"subject\":\"" + shipping_address + "\","
                 + "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
         request.setReturnUrl("https://localhost:8082/user_order_list");
         String form = "";

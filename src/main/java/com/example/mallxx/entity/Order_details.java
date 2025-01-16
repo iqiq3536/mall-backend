@@ -9,6 +9,12 @@ public class Order_details {
     private double total_price;
     private String create_at;
     private String order_detail_status;//订单状态
+    private String shipping_status;//配送状态
+    private String last_update_at;
+    private int merchant_id;
+    private int user_id;
+    private String shipping_address;
+    private String orderNo;
 
     public int getOrder_detail_id() {
         return order_detail_id;
@@ -65,13 +71,6 @@ public class Order_details {
     public String getOrderNo() {
         return orderNo;
     }
-
-    private String shipping_status;//配送状态
-    private String last_update_at;
-    private int merchant_id;
-    private int user_id;
-    private String shipping_address;
-    private String orderNo;
 
     public void setMerchant_id(int merchant_id) {
         this.merchant_id = merchant_id;
