@@ -1,8 +1,10 @@
 package com.example.mallxx.controller;
 
 
+import com.example.mallxx.Service.MailService;
 import com.example.mallxx.entity.User;
 import com.example.mallxx.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,9 @@ import java.util.Map;
 public class UserController {
 
     private final UserMapper UserMapper;
+
+    @Autowired
+    private MailService mailService;
 
     public UserController(UserMapper UserMapper) {
         this.UserMapper = UserMapper;
@@ -106,7 +111,6 @@ public class UserController {
     // 通过id更新用户，返回包装了布尔结果的ResponseEntity
     @PostMapping("/updateUserById")
     public ResponseEntity<Boolean> updateUserById(@RequestBody User request) {
-        // 假设userMapper已经通过依赖注入获得
         boolean isUpdated = UserMapper.updateUser(request);
         if (isUpdated) {
             return ResponseEntity.ok(true);
@@ -116,9 +120,40 @@ public class UserController {
         }
     }
     //注册新用户
-    @PostMapping("/addUser")
-    public ResponseEntity<Map<String, Object>> addUser(@RequestBody User request) {
+    // 处理验证码验证的请求
+    @PostMapping("/verifyCaptcha")
+    public ResponseEntity<Map<String, Object>> verifyCaptcha(@RequestParam String email, @RequestParam String captcha) {
         Map<String, Object> response = new HashMap<>();
+
+        // 验证验证码
+        boolean valid = mailService.validateCaptcha(email, captcha);
+
+        if (valid) {
+            response.put("success", true);
+            response.put("message", "验证码验证成功");
+        } else {
+            response.put("success", false);
+            response.put("message", "验证码无效或已过期");
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
+    // 处理用户注册
+    // 处理用户注册
+    // 处理用户注册
+    @PostMapping("/addUser")
+    public ResponseEntity<Map<String, Object>> addUser(@RequestBody User request, @RequestParam String captcha) {
+        Map<String, Object> response = new HashMap<>();
+
+        // 验证验证码，使用request.getContactInfo()获取邮箱
+        boolean valid = mailService.validateCaptcha(request.getContact_info(), captcha);
+
+        if (!valid) {
+            response.put("success", false);
+            response.put("message", "验证码无效或已过期");
+            return ResponseEntity.ok(response);
+        }
 
         // 检查用户名是否已经存在
         boolean userExists = UserMapper.checkUserExists(request.getUsername());
@@ -132,7 +167,7 @@ public class UserController {
 
             if (success) {
                 response.put("success", true);
-                response.put("message", "注册大成功");
+                response.put("message", "注册成功");
             } else {
                 response.put("success", false);
                 response.put("message", "注册失败");
@@ -141,6 +176,33 @@ public class UserController {
 
         return ResponseEntity.ok(response);
     }
+
+
+
+    // 处理验证码发送请求
+    @PostMapping("/sendEmail")
+    public ResponseEntity<Map<String, Object>> sendTestEmail(@RequestBody Map<String, String> request) {
+        Map<String, Object> response = new HashMap<>();
+        String email = request.get("email");  // 从请求体中获取 email 参数
+
+        // 生成验证码
+        String code = mailService.generateCaptcha();
+        mailService.saveCaptcha(email, code);
+
+        // 发送验证码邮件
+        try {
+            mailService.sendTestEmail(email, "您的验证码是：" + code);
+            response.put("success", true);
+            response.put("message", "验证码已发送到邮箱");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("success", false);
+            response.put("message", "验证码发送失败: " + e.getMessage());
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
 
 
     // 根据ID删除用户信息
