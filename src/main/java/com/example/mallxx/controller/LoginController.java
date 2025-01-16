@@ -87,7 +87,7 @@ public class LoginController {
         Map<String, Object> response = new HashMap<>();
         Admin admin = adminMapper.loginAdmin(username, password);
         if ( admin != null) {
-            Cookie userIdCookie = new Cookie("adminId", String.valueOf(admin.getAdminId()));
+            Cookie userIdCookie = new Cookie("admin_id", String.valueOf(admin.getAdminId()));
             userIdCookie.setHttpOnly(true);
             userIdCookie.setMaxAge(3600);
             userIdCookie.setPath("/");
