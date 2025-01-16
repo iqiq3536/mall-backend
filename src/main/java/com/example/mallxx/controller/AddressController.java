@@ -1,15 +1,11 @@
 package com.example.mallxx.controller;
 
 import com.example.mallxx.entity.Address;
-import com.example.mallxx.entity.User;
 import com.example.mallxx.mapper.AddressMapper;
-import com.example.mallxx.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 
 @RestController

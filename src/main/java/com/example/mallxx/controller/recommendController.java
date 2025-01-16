@@ -4,16 +4,12 @@ import com.example.mallxx.entity.Product;
 import com.example.mallxx.entity.User;
 import com.example.mallxx.mapper.UserMapper;
 import com.example.mallxx.mapper.ProductMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.mallxx.Service.RandomNumberService;
 import com.example.mallxx.Service.UserInterestProductService;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @CrossOrigin

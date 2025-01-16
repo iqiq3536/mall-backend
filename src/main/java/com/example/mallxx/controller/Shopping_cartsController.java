@@ -3,13 +3,10 @@ package com.example.mallxx.controller;
 import com.example.mallxx.entity.Shopping_carts;
 import com.example.mallxx.entity.User;
 import com.example.mallxx.mapper.Shopping_cartsMapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")

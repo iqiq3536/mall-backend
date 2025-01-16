@@ -1,6 +1,5 @@
 package com.example.mallxx.mapper;
 
-import com.example.mallxx.entity.Seller;
 import com.example.mallxx.entity.User;
 import org.apache.ibatis.annotations.*;
 

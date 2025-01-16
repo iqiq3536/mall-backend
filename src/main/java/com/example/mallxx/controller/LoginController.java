@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import com.example.mallxx.entity.User;
+
 import com.example.mallxx.mapper.UserMapper;
 @RequestMapping("/api")
 @RestController
