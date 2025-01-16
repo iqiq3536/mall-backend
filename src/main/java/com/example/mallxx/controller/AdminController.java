@@ -50,7 +50,7 @@ public class AdminController {
      */
     @PostMapping("/deleteMerchant")
     public boolean deleteMerchant(@RequestBody User request) {
-        return MerchantMapper.deletemerchant(request.getUser_id());;
+        return MerchantMapper.deletemerchant(request.getUser_id());
     }
 
 
