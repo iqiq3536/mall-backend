@@ -102,4 +102,20 @@ public class LoginController {
         }
         return ResponseEntity.ok(response);
     }
+    @RequestMapping("/merchants_name")
+    public ResponseEntity<String> merchants_name(@CookieValue(value = "merchantId", required = false) String merchantId) {
+        if(merchantId != null)
+            return ResponseEntity.ok(merchantMapper.findById(Integer.parseInt(merchantId)).getShop_name());
+        else
+            return ResponseEntity.ok("");
+    }
+
+    @RequestMapping("/users_name")
+    public ResponseEntity<String> users_name(@CookieValue(value = "user_id", required = false) String user_id) {
+        if(user_id != null)
+            return ResponseEntity.ok(userMapper.findById(Integer.parseInt(user_id)).getFull_name());
+        else {
+            return ResponseEntity.ok("");
+        }
+    }
 }
