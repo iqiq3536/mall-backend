@@ -17,9 +17,15 @@ public class AddressController {
 
     // 添加地址信息
     @PostMapping("/add")
-    public boolean addAddress(@RequestBody Address address) {
+    public boolean addAddress(@CookieValue(value = "user_id", required = false)String User_id,@RequestBody Address address) {
         //addressMapper.addAddress(address);
-        return addressMapper.addAddress(address); // 或者根据业务逻辑返回更详细的信息
+        System.out.println(User_id + "--------------------");
+        System.out.println(address+"--------------------");
+        if (User_id != null && !User_id.isEmpty()) {
+            address.setUser_id(Integer.parseInt(User_id));
+            System.out.println(User_id+"---*******-----------");
+        }
+        return addressMapper.addAddress(address);
     }
 
     /*// 删除地址信息
@@ -41,31 +47,24 @@ public class AddressController {
     // 更新地址信息
     @PostMapping("/update")
     public boolean updateAddress(@CookieValue(value = "user_id", required = false)String User_id,@RequestBody Address address) {
-        if (User_id != null && !User_id.isEmpty()) {
-            address.setUser_id(Integer.parseInt(User_id)); // 假设 user_id 是整数类型
-        }
+        //System.out.println(User_id + "--------------------");
+        //System.out.println(address.getUser_id()+"-++++++++++++++-");
+
+        /*if (User_id != null && !User_id.isEmpty()) {
+            address.setUser_id(Integer.parseInt(User_id));
+            System.out.println(User_id+"---*******-----------");
+        }*/
         System.out.println(address);
         return addressMapper.updateAddress(address);
     }
 
-    // 查询用户地址信息
-    /*@GetMapping("/find/{userId}")
-    public List<Address> findAddresses(@PathVariable("userId") Integer userId) {
-        return addressMapper.findAddressesByUserId(userId);
-    }*/
-    /**
-     * 从RequestBody里获取id来进行获取用户地址信息
-     */
-    /*@PostMapping("/find")
-    public List<Address> findAddresses(@RequestBody User user) {
-        return addressMapper.findAddressesByUserId(user.getUser_id());
-    }*/
+
     @RequestMapping("/find") // 使用POST方法
     public ResponseEntity<List<Address>> find(@CookieValue(value = "user_id", required = false)String User_id ) {
-        System.out.println(User_id +"--------------------");
+        //System.out.println(User_id +"--------------------");
         List<Address> address = addressMapper.findAddressesByUserId(Integer.parseInt(User_id));
-        System.out.println(address);
-        System.out.println(User_id +"--------------------");
+        //System.out.println(address);
+        //System.out.println(User_id +"--------------------");
 
         return ResponseEntity.ok(address);
     }
