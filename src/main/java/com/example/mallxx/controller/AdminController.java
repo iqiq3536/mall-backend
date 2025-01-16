@@ -49,8 +49,8 @@ public class AdminController {
      * 根据id删除商家
      */
     @PostMapping("/deleteMerchant")
-    public boolean deleteMerchant(@RequestBody User request) {
-        return MerchantMapper.deletemerchant(request.getUser_id());
+    public boolean deleteMerchant(@RequestBody Merchant request) {
+        return MerchantMapper.deletemerchant(request.getId());
     }
 
 
