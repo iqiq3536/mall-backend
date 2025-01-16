@@ -1,10 +1,7 @@
 package com.example.mallxx.mapper;
 
 import com.example.mallxx.entity.Merchant;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 @Mapper
@@ -25,18 +22,18 @@ public interface MerchantMapper {
     Merchant findById(@Param("id") int id);
 
     /**
-     * 通过商家id删除商家
+     *删除商家
      */
-    @Select("DELETE FROM merchants WHERE id = #{id}")
-    void deleteById(@Param("id") int id);
+    @Delete("DELETE FROM merchants WHERE id = #{id}")
+    Boolean deletemerchant(@Param("id") int id);
 
     /**
      *更新商家信息
      */
-    @Update("UPDATE merchants SET username = #{username}, password = #{password}, " +
-            "shop_name = #{shop_name}, contact_info = #{contact_info}, address = #{address} WHERE id = #{id}")
-    void update(@Param("id") int id, @Param("username") String username,
-                @Param("password") String password, @Param("shop_name") String shop_name,
-                @Param("contact_info") String contact_info, @Param("address") String address);
+
+    @Update("UPDATE merchants SET username = #{merchant.username}, password = #{merchant.password}, " +
+            "shop_name = #{merchant.shop_name}, contact_info = #{merchant.contact_info}, address = #{merchant.address} " +
+            "WHERE id = #{merchant.id}")
+    Boolean updateMerchant(@Param("merchant") Merchant merchant);
 
 }
