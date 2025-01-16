@@ -39,8 +39,12 @@ public class AddressController {
     }
 
     // 更新地址信息
-    @PutMapping("/update")
-    public boolean updateAddress(@RequestBody Address address) {
+    @PostMapping("/update")
+    public boolean updateAddress(@CookieValue(value = "user_id", required = false)String User_id,@RequestBody Address address) {
+        if (User_id != null && !User_id.isEmpty()) {
+            address.setUser_id(Integer.parseInt(User_id)); // 假设 user_id 是整数类型
+        }
+        System.out.println(address);
         return addressMapper.updateAddress(address);
     }
 
