@@ -27,17 +27,17 @@ public class UserInterestProductService {
      * 获取用户最感兴趣的5个标签，并根据这些标签获取推荐商品列表。
      */
     public  List<Integer> getRecommendedProducts(int userId) {
-        // 1. 获取用户最感兴趣的5个标签
+        // 获取用户最感兴趣的5个标签
         List<UserInterest> topInterests = userInterestMapper.selectByUserId(userId)
                 .stream()
                 .sorted(Comparator.comparingInt(UserInterest::getInterestScore).reversed()) // 按兴趣得分降序排列
                 .limit(5) // 只取前5个标签
                 .collect(Collectors.toList());
 
-        // 2. 创建一个Map来存储商品及其对应的标签命中次数
+        // 创建一个Map来存储商品及其对应的标签命中次数
         Map<Integer, Integer> productCounts = new HashMap<>();
 
-        // 3. 对于每个标签，查找所有关联的商品，并更新商品的标签命中次数
+        // 对于每个标签，查找所有关联的商品，并更新商品的标签命中次数
         for (UserInterest interest : topInterests) {
             List<ProductTagAssociation> productsWithTag = productTagAssociationMapper.selectByTagId(interest.getTagId());
             for (ProductTagAssociation pta : productsWithTag) {
@@ -46,7 +46,7 @@ public class UserInterestProductService {
             }
         }
 
-        // 4. 根据商品命中的标签数量进行降序排序
+        // 根据商品命中的标签数量进行降序排序
         List<Integer> recommendedProductIds = productCounts.entrySet().stream()
                 .sorted(Map.Entry.<Integer, Integer>comparingByValue().reversed())
                 .map(Map.Entry::getKey)

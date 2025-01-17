@@ -34,7 +34,7 @@ public class UserPreferencesService {
         List<UserBrowsingHistory> browsingHistories = userBrowsingHistoryMapper.getByUserId(userId)
                 .stream()
                 .sorted(Comparator.comparing(UserBrowsingHistory::getViewDate).reversed()) // 按时间降序排列
-                .limit(20) // 只取最近的20条记录
+                .limit(10) // 只取最近的20条记录
                 .toList();
 
         // 创建一个Map来存储标签及其出现的次数

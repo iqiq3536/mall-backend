@@ -32,16 +32,23 @@ public interface ProductMapper {
     Product findById(int id);
 
     /**
-     * 通过商品id列表查找商品
+     * 通过多个商品id查找多个商品
      * @param id
      */
-    @Select("<script>" +
+    @Select("select * from products where id in " +
+            "<foreach collection='list' item='id' open='(' separator=',' close=')'>" +
+            "#{id}" +
+            "</foreach>")
+    List<Product> findByIdList(List<Integer> id);
+
+
+    /*@Select("<script>" +
             "select * from products where id in " +
             "<foreach collection='list' item='id' open='(' separator=',' close=')'>" +
             "#{id}" +
             "</foreach>" +
             "</script>")
-    List<Product> findByIdList(List<Integer> id);
+    List<Product> findByIdList(List<Integer> id);*/
 
 
     @Delete("delete from products where id = #{id}")
