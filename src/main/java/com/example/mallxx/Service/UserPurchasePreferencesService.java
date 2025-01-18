@@ -8,10 +8,12 @@ import com.example.mallxx.entity.UserPurchaseHistory;
 import com.example.mallxx.mapper.ProductTagAssociationMapper;
 import com.example.mallxx.mapper.UserPurchaseHistoryMapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Service;
 
 /**
  * 用户购买历史表：10条，标签计数
  */
+@Service
 public class UserPurchasePreferencesService {
 
     private final UserPurchaseHistoryMapper userPurchaseHistoryMapper;
@@ -28,12 +30,15 @@ public class UserPurchasePreferencesService {
      * 根据用户ID获取用户购买历史中的标签偏好
      */
     public Map<Integer, Integer> getUserPurchaseTagPreferences(int userId) {
+        System.out.println("getUserPurchaseTagPreferences"+userId);
+        int user_id = userId;
         // 从用户购买历史中获取最近的10个商品
-        List<UserPurchaseHistory> purchaseHistories = userPurchaseHistoryMapper.selectByUserId(userId)
+        List<UserPurchaseHistory> purchaseHistories = userPurchaseHistoryMapper.selectByUserId(user_id)
                 .stream()
                 .sorted(Comparator.comparing(UserPurchaseHistory::getPurchaseDate).reversed()) // 按时间降序排列
                 .limit(10) // 只取最近的10条记录
                 .toList();
+        System.out.println("purchaseHistories"+purchaseHistories);
 
         // 创建一个Map来存储标签及其出现的次数
         Map<Integer, Integer> tagCounts = new HashMap<>();
@@ -43,8 +48,8 @@ public class UserPurchasePreferencesService {
             List<ProductTagAssociation> tags = productTagAssociationMapper.selectByProductId(purchase.getProductId());
             for (ProductTagAssociation tag : tags) {
                 // 更新标签计数
-                int count = tagCounts.getOrDefault(tag.getTagId(), 0);
-                tagCounts.put(tag.getTagId(), count + 1);
+                int count = tagCounts.getOrDefault(tag.getTag_id(), 0);
+                tagCounts.put(tag.getTag_id(), count + 1);
             }
         }
 

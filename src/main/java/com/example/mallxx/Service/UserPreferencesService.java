@@ -45,8 +45,8 @@ public class UserPreferencesService {
             List<ProductTagAssociation> tags = productTagAssociationMapper.selectByProductId(history.getProduct_id());
             for (ProductTagAssociation tag : tags) {
                 // 更新标签计数
-                int count = tagCounts.getOrDefault(tag.getTagId(), 0);
-                tagCounts.put(tag.getTagId(), count + 1);
+                int count = tagCounts.getOrDefault(tag.getTag_id(), 0);
+                tagCounts.put(tag.getTag_id(), count + 1);
             }
         }
 

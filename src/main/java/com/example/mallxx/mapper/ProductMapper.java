@@ -34,21 +34,18 @@ public interface ProductMapper {
     /**
      * 通过多个商品id查找多个商品
      * @param id
+     *List<Product> Products = ProductMapper.findByIdList(Productids);
      */
-    @Select("select * from products where id in " +
-            "<foreach collection='list' item='id' open='(' separator=',' close=')'>" +
-            "#{id}" +
-            "</foreach>")
-    List<Product> findByIdList(List<Integer> id);
-
-
-    /*@Select("<script>" +
+    @Select("<script>" +
             "select * from products where id in " +
             "<foreach collection='list' item='id' open='(' separator=',' close=')'>" +
             "#{id}" +
             "</foreach>" +
             "</script>")
-    List<Product> findByIdList(List<Integer> id);*/
+    List<Product> findByIdList(List<Integer> id);
+
+    //List<Product> findByIdList(List<Integer> id);
+
 
 
     @Delete("delete from products where id = #{id}")

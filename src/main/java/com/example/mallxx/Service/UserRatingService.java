@@ -36,7 +36,7 @@ public class UserRatingService {
             List<ProductTagAssociation> tags = productTagAssociationMapper.selectByProductId(rating.getProductId());
             for (ProductTagAssociation tag : tags) {
                 // 更新标签评分累积器
-                TagRatingAccumulator accumulator = tagRatings.computeIfAbsent(tag.getTagId(), k -> new TagRatingAccumulator());
+                TagRatingAccumulator accumulator = tagRatings.computeIfAbsent(tag.getTag_id(), k -> new TagRatingAccumulator());
                 accumulator.addRating(rating.getRating());
             }
         }

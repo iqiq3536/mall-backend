@@ -35,9 +35,9 @@ public class UserInterestService {
         // 遍历所有标签，更新或插入兴趣标签记录
         for (Map.Entry<Integer, Integer> entry : intCompositeScores.entrySet()) {
             UserInterest userInterest = new UserInterest();
-            userInterest.setUserId(userId);
-            userInterest.setTagId(entry.getKey());
-            userInterest.setInterestScore(entry.getValue());
+            userInterest.setUser_id(userId);
+            userInterest.setTag_id(entry.getKey());
+            userInterest.setInterest_score(entry.getValue());
 
             // 检查是否存在该用户的标签记录
             if (existsUserInterestRecord(userId, entry.getKey())) {
