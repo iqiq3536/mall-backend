@@ -41,7 +41,7 @@ public interface UserPurchaseHistoryMapper {
 
     /**
      * 根据用户ID查询所有该用户的购买历史记录。
-     * @param userId 查询条件：用户的ID
+     * @param  ：用户的ID
      * @return 返回该用户所有的购买历史列表
      */
     @Select("SELECT * FROM user_purchase_history WHERE user_id = #{user_id}")

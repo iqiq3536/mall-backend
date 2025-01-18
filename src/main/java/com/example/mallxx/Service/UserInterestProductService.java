@@ -33,10 +33,10 @@ public class UserInterestProductService {
         //UserPurchasePreferencesService.getUserPurchaseTagPreferences(user_id);
         // 获取用户最感兴趣的5个标签
         System.out.println(user_id+"---/-/-0zhiqian/-/-/-/-/-/-//-/-/--/-\n");
-        if (user_id==1){
+        /*if (user_id==1){
             user_id =3536;
             System.out.println("userId=3536");
-        }
+        }*/
         System.out.println(user_id+"---/-/-/-0zhihou/-/-/-/-/-//-/-/--/-\n");
         List<UserInterest> List = userInterestMapper.selectByUserId(user_id);
         System.out.println(List+"usst----------------\n");

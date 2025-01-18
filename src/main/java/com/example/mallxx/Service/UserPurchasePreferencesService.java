@@ -30,9 +30,12 @@ public class UserPurchasePreferencesService {
      * 根据用户ID获取用户购买历史中的标签偏好
      */
     public Map<Integer, Integer> getUserPurchaseTagPreferences(int userId) {
-        System.out.println("getUserPurchaseTagPreferences"+userId);
         int user_id = userId;
+        System.out.println("getUserPurchaseTagPreferences"+user_id);
+
         // 从用户购买历史中获取最近的10个商品
+        List<UserPurchaseHistory> list = userPurchaseHistoryMapper.selectByUserId(user_id);
+        System.out.println("list"+list);
         List<UserPurchaseHistory> purchaseHistories = userPurchaseHistoryMapper.selectByUserId(user_id)
                 .stream()
                 .sorted(Comparator.comparing(UserPurchaseHistory::getPurchaseDate).reversed()) // 按时间降序排列
