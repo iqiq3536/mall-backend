@@ -40,16 +40,16 @@ public interface ProductTagMapper {
     @Select("SELECT * FROM product_tags WHERE tag_name = #{tag_name}")
     ProductTag isExist(String name);
 
-    @Select("SELECT pt.* FROM product_tags pt INNER JOIN product_tag_association pta ON pt.id = pta.tagId WHERE pta.productId = #{id}")
+    @Select("SELECT pt.* FROM product_tags pt INNER JOIN product_tag_association pta ON pt.id = pta.tag_id WHERE pta.product_id = #{id}")
     List<ProductTag> selectById2(int id);
 
-    @Delete("DELETE FROM product_tag_association WHERE productId = #{ProductId} AND tagId = #{TagId}")
+    @Delete("DELETE FROM product_tag_association WHERE product_id = #{ProductId} AND tag_id = #{TagId}")
     void deleteByProductIdANDTagId(int ProductId, int TagId);
 
-    @Insert("INSERT INTO product_tag_association(productId, tagId) VALUES(#{ProductId}, #{TagId})")
+    @Insert("INSERT INTO product_tag_association(product_id, tag_id) VALUES(#{ProductId}, #{TagId})")
     void insertByProductIdANDTagId(int ProductId, int TagId);
 
-    @Select("SELECT * FROM product_tag_association WHERE productId = #{ProductId} AND tagId = #{TagId}")
+    @Select("SELECT * FROM product_tag_association WHERE product_id = #{ProductId} AND tag_id = #{TagId}")
     ProductTagAssociation isExistByProductIdANDTagId(int ProductId, int TagId);
 
 }

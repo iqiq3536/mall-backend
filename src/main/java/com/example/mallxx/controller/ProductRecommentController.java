@@ -40,12 +40,23 @@ public class ProductRecommentController {
      */
     @GetMapping("/List")
     public ResponseEntity<List<Product>> List(@CookieValue(value = "user_id", required = false)String User_id) {
+        System.out.println("Raw User_id: " + User_id);
+        if (User_id == null || User_id.isEmpty()) {
+            System.out.println("Products is null-++++++++++++++");
+            List<Product> Products = ProductMapper.findAll();
+            return ResponseEntity.ok(Products);
+        }
         int user_id = Integer.parseInt(User_id);
         System.out.println("//**/*/*/////////"+user_id+"user_id"+"-------------------------");
         List<Integer> Productids = UserInterestProductService.getRecommendedProducts(user_id);
         //System.out.println(Productids);
         //List<Integer> productIds = Arrays.asList(42, 43, 44, 45, 46, 47,48,49,50,51);
         List<Product> Products = ProductMapper.findByIdList(Productids);
+        if (Products == null) {
+            System.out.println("Products is null----------");
+            Products = ProductMapper.findAll();
+            return ResponseEntity.ok(Products);
+        }
 
         return ResponseEntity.ok(Products);
     }
